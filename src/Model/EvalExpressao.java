@@ -1,7 +1,9 @@
 package Model;
 
 import java.util.Map;
+import java.util.function.Predicate;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class EvalExpressao { 
@@ -38,5 +40,16 @@ public class EvalExpressao {
 
     return tkn; 
     
+    }
+
+    static List <String> toRpn(List <String> tokens){
+        List <String> saida = new LinkedList<>();
+        List <String> operadores = new LinkedList<>();
+
+        Predicate <String> isNumber = tok -> tok.matches("-?\\d+(\\.\\d+)?");
+        Predicate <String> isBracketLeft = tok -> tok.equals("(");
+        Predicate <String> isBracketRight = tok -> tok.equals(")"); 
+
+
     }
 }
