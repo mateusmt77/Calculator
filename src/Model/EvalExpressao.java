@@ -23,13 +23,14 @@ public class EvalExpressao {
                 int x = i; 
                 while(x < expressaoCompleta.length() && (Character.isDigit(expressaoCompleta.charAt(x))||expressaoCompleta.charAt(x)=='.')) x++;
                 tkn.add(expressaoCompleta.substring(i, x)); 
-            } else{
+
+            } else {
                 if(c == '-' && (i == 0 || "+-*/^(".indexOf(expressaoCompleta.charAt(i-1))>=0)){ 
                     int x = i + 1; 
                     if(x < expressaoCompleta.length() && (Character.isDigit(expressaoCompleta.charAt(x))||expressaoCompleta.charAt(x)=='.')){
                         while(x < expressaoCompleta.length() && (Character.isDigit(expressaoCompleta.charAt(x))||expressaoCompleta.charAt(x)=='.')) x++;
                         tkn.add(expressaoCompleta.substring(i,x)); i=x; 
-                } else{
+                } else {
                     tkn.add("-1"); tkn.add("*");  
                 } 
 

@@ -11,7 +11,18 @@ public class Data_Operations {
     private List <String> operadores = List.of("+", "-", "/", "x", "(", ")");
     private List <String> operadoresLista = new ArrayList<>(operadores); 
     public static String expressaoCompleta = "";
+
+    public void validandoEntrada(String inputUsuario){
+        if((inputUsuario.matches("^[+-]?\\d+(\\.\\d+)?$")) || (operadoresLista.contains(inputUsuario))){
+            armazenandoValoresLista(inputUsuario);
+        } 
+    }
+
+    public void armazenandoValoresLista(String entrada){ 
+        this.expressaoCompleta += entrada; 
+    }
     
+    // OPERAÇÕES COM RETORNO 
     public BigDecimal add(Double v1, Double v2){
         this.valor1 = v1;
         this.valor2 = v2;
@@ -43,14 +54,4 @@ public class Data_Operations {
         BigDecimal resultado = div(valor1, valor2);  
         return resultado;
     }  
-
-    public void validandoEntrada(String inputUsuario){
-        if((inputUsuario.matches("^[+-]?\\d+(\\.\\d+)?$")) || (operadoresLista.contains(inputUsuario))){
-            armazenandoValoresLista(inputUsuario);
-        }
-    }
-
-    public void armazenandoValoresLista(String entrada){ 
-        this.expressaoCompleta += entrada; 
-    }
 }
