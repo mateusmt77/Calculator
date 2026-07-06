@@ -43,13 +43,33 @@ public class EvalExpressao {
     }
 
     static List <String> toRpn(List <String> tokens){
-        List <String> saida = new LinkedList<>();
-        List <String> operadores = new LinkedList<>();
+        LinkedList <String> saida = new LinkedList<>();
+        LinkedList <String> operadores = new LinkedList<>(); 
 
-        Predicate <String> isNumber = tok -> tok.matches("-?\\d+(\\.\\d+)?");
-        Predicate <String> isBracketLeft = tok -> tok.equals("(");
-        Predicate <String> isBracketRight = tok -> tok.equals(")"); 
+        for (String tokenAtual : tokens) {
+            Predicate <String> isNumber = valor -> valor.matches("-?\\d+(\\.\\d+)?");
+            Predicate <String> isBracketLeft = valor -> valor.equals("(");
+            Predicate <String> isBracketRight = valor -> valor.equals(")"); 
 
+            if(isNumber.test(tokenAtual)){
+                saida.add(tokenAtual); 
 
+            } else if (isBracketLeft.test(tokenAtual)){ 
+                operadores.add(tokenAtual); 
+
+            } else if (isBracketRight.test(tokenAtual)){
+                while (!operadores.isEmpty() || (!operadores.peek().equals("("))) { 
+                    saida.add(operadores.pop()); 
+  
+                }
+
+            }  else{ 
+
+            }
+        
     }
+            
+        }
+
+        
 }
