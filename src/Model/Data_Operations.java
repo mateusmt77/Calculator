@@ -1,6 +1,5 @@
 package Model;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,35 +22,35 @@ public class Data_Operations {
     }
     
     // OPERAÇÕES COM RETORNO 
-    public BigDecimal add(Double v1, Double v2){
+    public Double add(Double v1, Double v2){
         this.valor1 = v1;
         this.valor2 = v2;
 
-        BigDecimal resultado = add(valor1, valor2);  
+        Double resultado = add(valor1, valor2);  
         return resultado;
     } 
 
-    public BigDecimal sub(Double v1, Double v2){
+    public Double sub(Double v1, Double v2){
         this.valor1 = v1;
         this.valor2 = v2;
 
-        BigDecimal resultado = sub(valor1, valor2); 
+        Double resultado = sub(valor1, valor2); 
         return resultado;
     } 
 
-    public BigDecimal mult(Double v1, Double v2){
+    public Double mult(Double v1, Double v2){
         this.valor1 = v1;
         this.valor2 = v2;
 
-        BigDecimal resultado = mult(valor1, valor2); 
+        Double resultado = mult(valor1, valor2); 
         return resultado;
     } 
 
-    public BigDecimal div(Double v1, Double v2){
+    public Double div(Double v1, Double v2){
         this.valor1 = v1;
         this.valor2 = v2;
 
-        BigDecimal resultado = div(valor1, valor2);  
+        Double resultado = div(valor1, valor2);  
         return resultado;
     }  
 }
