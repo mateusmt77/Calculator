@@ -87,14 +87,15 @@ public class EvalExpressao {
         return saida;
     }
 
-    static double evalRpn(List<String> saidaNotacaoInversa) {
+    static Double evalRpn(List <String> saidaNotacaoInversa) {
         Deque<Double> acumuladorNumerico = new ArrayDeque<>();  
         Predicate<String> isNumber = valor -> valor.matches("-?\\d+(\\.\\d+)?");  
-        Data_Operations operacao = new Data_Operations();
+        Data_Operations operacao = new Data_Operations(); 
 
         for (String cont : saidaNotacaoInversa) { 
             if (isNumber.test(cont)) {
                 acumuladorNumerico.push(Double.parseDouble(cont));  
+
             } else {
                 Double valor2 = acumuladorNumerico.pop(); 
                 Double valor1 = acumuladorNumerico.pop();   
@@ -102,7 +103,7 @@ public class EvalExpressao {
                 switch (cont) { 
                     case "+":
                         acumuladorNumerico.push(operacao.add(valor1, valor2)); 
-                        break;
+                        break; 
 
                     case "-":
                         acumuladorNumerico.push(operacao.sub(valor1, valor2));
@@ -114,11 +115,11 @@ public class EvalExpressao {
 
                     case "/":
                         acumuladorNumerico.push(operacao.div(valor1, valor2));
-                        break;
+                        break; 
             }
         }
     }
-        return acumuladorNumerico.pop(); 
+        return acumuladorNumerico.pop();  
     }
 }
 

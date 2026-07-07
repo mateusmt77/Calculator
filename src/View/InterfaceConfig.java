@@ -1,12 +1,17 @@
 package View;
 
 import java.awt.event.ActionListener;
+import java.sql.Time;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import Controller.Validations;
+import Model.Data_Operations;
 
 public class InterfaceConfig extends JFrame{
 
@@ -120,16 +125,36 @@ public class InterfaceConfig extends JFrame{
         start.add(painel, java.awt.BorderLayout.CENTER);
 
     }
-        ActionListener listenerNum;  
+        ActionListener listenerNum;
 
-        public void handleNumeros(String entrada){ Validations entradaCalculadora = new Validations();
+        public void handleEntrada(String entrada){ Validations entradaCalculadora = new Validations();
 
             switch (entrada) {
 
                 case "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "+", "-", "x", "/", "(", ")", "." -> {
                     entradaCalculadora.armazenandoValores(entrada); 
-                    display.setText(display.getText() + entrada);
+                    display.setText(display.getText() + entrada); 
                 } 
+        }
+    }
+
+    public void handleResultado(String sinalIgual){ Data_Operations op = new Data_Operations(); 
+
+        try {  
+
+            double resultadoFinal = op.retornoExpressao(); // retornando o resultado   
+            display.setText(String.valueOf(resultadoFinal)); // atualizando o display com o resultado final
+            
+        } catch (IllegalArgumentException e) { 
+
+            ScheduledExecutorService timer = Executors.newSingleThreadScheduledExecutor(); 
+             
+
+
+            
+             
+            
+
         }
     }
 } 

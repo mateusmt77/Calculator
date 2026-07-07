@@ -7,9 +7,9 @@ public class Data_Operations {
 
     private Double valor1;
     private Double valor2; 
-    private List <String> operadores = List.of("+", "-", "/", "x", "(", ")");
+    private List <String> operadores = List.of("+", "-", "/", "x", "(", ")", ".");
     private List <String> operadoresLista = new ArrayList<>(operadores); 
-    public static String expressaoCompleta = "";
+    public String expressaoCompleta = "";
 
     public void validandoEntrada(String inputUsuario){
         if((inputUsuario.matches("^[+-]?\\d+(\\.\\d+)?$")) || (operadoresLista.contains(inputUsuario))){
@@ -17,8 +17,21 @@ public class Data_Operations {
         } 
     }
 
-    public void armazenandoValoresLista(String entrada){ 
-        this.expressaoCompleta += entrada; 
+    private void armazenandoValoresLista(String entrada){ 
+        this.expressaoCompleta += entrada;  
+    }
+
+    public Double retornoExpressao(){ EvalExpressao op = new EvalExpressao();
+
+        List <String> tokens = op.token(expressaoCompleta); 
+        List <String> rpn = op.toRpn(tokens);
+        expressaoCompleta = ""; 
+
+        return op.evalRpn(rpn);  
+    } 
+
+    public void limpandoExpressao(){
+        this.expressaoCompleta = ""; 
     }
     
     // OPERAÇÕES COM RETORNO 
