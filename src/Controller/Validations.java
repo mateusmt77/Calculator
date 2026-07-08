@@ -2,20 +2,16 @@ package Controller;
 
 import Model.Data_Operations;
 
-public class Validations { 
+public class Validations {
 
-    public void armazenandoValores(String entrada){ 
+    private final Data_Operations transferencia;
 
-        if (entrada.contains(" ")){ 
-            entrada.replaceAll(" ", "");  
+    public Validations(Data_Operations transferencia) {
+        this.transferencia = transferencia;
+    }
 
-            Data_Operations transferencia = new Data_Operations();
-            transferencia.validandoEntrada(entrada.trim());  
-
-        }  else {
-            Data_Operations transferencia = new Data_Operations();
-            transferencia.validandoEntrada(entrada.trim());  
-        }
- 
+    public void armazenandoValores(String entrada) {
+        String entradaLimpa = entrada.replace(" ", "");
+        transferencia.validandoEntrada(entradaLimpa.trim());
     }
 }

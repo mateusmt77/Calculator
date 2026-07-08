@@ -39,32 +39,27 @@ public class Data_Operations {
     public Double add(Double v1, Double v2) {
         this.valor1 = v1;
         this.valor2 = v2;
-
-        Double resultado = add(valor1, valor2);
-        return resultado;
+        return valor1 + valor2;
     }
 
     public Double sub(Double v1, Double v2) {
         this.valor1 = v1;
         this.valor2 = v2;
-
-        Double resultado = sub(valor1, valor2);
-        return resultado;
+        return valor1 - valor2;
     }
 
     public Double mult(Double v1, Double v2) {
         this.valor1 = v1;
         this.valor2 = v2;
-
-        Double resultado = mult(valor1, valor2);
-        return resultado;
+        return valor1 * valor2;
     }
 
     public Double div(Double v1, Double v2) {
         this.valor1 = v1;
         this.valor2 = v2;
-
-        Double resultado = div(valor1, valor2);
-        return resultado;
+        if (valor2 == 0) {
+            throw new IllegalArgumentException("Divisão por zero não é permitida");
+        }
+        return valor1 / valor2;
     }
 }
