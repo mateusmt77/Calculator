@@ -1,5 +1,7 @@
 package Controller;
 
+import java.util.Deque;
+
 import Model.ModeloCalculadora;
 
 public class ControladorCalculadora {
@@ -19,6 +21,12 @@ public class ControladorCalculadora {
         return modelo.anexarToken(tokenNormalizado);
     }
 
+    public void enviandoExpressaoModel(String expressao) {
+        if ((!expressao.contains(" ")) && (!expressao.isBlank())) {
+            modelo.adicionandoExpressao(expressao);
+        }
+    }
+
     public String obterExpressaoAtual() {
         return modelo.obterExpressao();
     }
@@ -29,5 +37,9 @@ public class ControladorCalculadora {
 
     public void limpar() {
         modelo.limpar();
+    }
+
+    public Deque<String> historicoOperacoes() {
+        return modelo.obterHistoricoExpressao();
     }
 }

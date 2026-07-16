@@ -1,21 +1,41 @@
 package Model;
 
+import java.util.ArrayDeque;
+import java.util.Deque;
+
 public class ModeloCalculadora {
 
-    private final AvaliadorExpressao avaliador = new AvaliadorExpressao(); 
-    private final StringBuilder construtorExpressao = new StringBuilder(); 
+    private final AvaliadorExpressao avaliador = new AvaliadorExpressao();
+    private final StringBuilder construtorExpressao = new StringBuilder();
+    private final Deque<String> historicoOperacoes = new ArrayDeque<>(20);
 
-
-    public boolean anexarToken(String token) { 
-        if (token == null || token.isBlank()) { 
-            return false; 
+    public boolean anexarToken(String token) {
+        if (token == null || token.isBlank()) {
+            return false;
         }
 
         if (tokenPermitido(token)) {
-            construtorExpressao.append(token); 
+            construtorExpressao.append(token);
             return true;
         }
         return false;
+    }
+
+    public void adicionandoExpressao(String expressaoEntrada) {
+        adicionarExpressaoHistorico(expressaoEntrada);
+    }
+
+    public void adicionarExpressaoHistorico(String expressaoTratada) {
+        if (historicoOperacoes.size() == 20) {
+            historicoOperacoes.removeFirst();
+            historicoOperacoes.add(expressaoTratada);
+        } else {
+            historicoOperacoes.add(expressaoTratada);
+        }
+    }
+
+    public Deque<String> obterHistoricoExpressao() {
+        return historicoOperacoes;
     }
 
     public String obterExpressao() {

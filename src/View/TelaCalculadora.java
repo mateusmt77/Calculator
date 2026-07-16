@@ -39,27 +39,27 @@ public class TelaCalculadora extends JFrame {
 
     public void exibirInterface() {
         configurarVisor();
-        add(criarPainelNumeros(), BorderLayout.CENTER); // -> painel de números
-        add(criarPainelOperadores(), BorderLayout.EAST); // -> painel de operadores
-        
+        add(criarPainelNumeros(), BorderLayout.CENTER);
+        add(criarPainelOperadores(), BorderLayout.EAST);
+
         JPanel painelInferior = new JPanel(new BorderLayout());
         painelInferior.setBackground(new Color(30, 30, 30));
         painelInferior.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 10, 10, 10));
         painelInferior.add(criarBotao("Calcs"), BorderLayout.CENTER);
         add(painelInferior, BorderLayout.SOUTH);
-        
+
         setLocationRelativeTo(null);
         setVisible(true);
     }
 
     private void configurarVisor() {
         visor.setEditable(false);
-        visor.setFont(new Font("Segoe UI", Font.BOLD, 46)); // Fonte moderna e maior
+        visor.setFont(new Font("Segoe UI", Font.BOLD, 46));
         visor.setBackground(new Color(30, 30, 30));
-        visor.setForeground(Color.WHITE); // Texto branco clean
+        visor.setForeground(Color.WHITE);
         visor.setHorizontalAlignment(JTextField.RIGHT);
-        visor.setBorder(javax.swing.BorderFactory.createEmptyBorder(20, 20, 20, 20)); // Mais margem
-        visor.setPreferredSize(new java.awt.Dimension(0, 120)); // Visor um pouco mais alto
+        visor.setBorder(javax.swing.BorderFactory.createEmptyBorder(20, 20, 20, 20));
+        visor.setPreferredSize(new java.awt.Dimension(0, 120));
         add(visor, BorderLayout.NORTH);
     }
 
@@ -89,28 +89,28 @@ public class TelaCalculadora extends JFrame {
 
     private JButton criarBotao(String rotulo) {
         JButton botao = new JButton(rotulo);
-        botao.setFont(new Font("Segoe UI", Font.BOLD, 24)); // Fonte moderna
+        botao.setFont(new Font("Segoe UI", Font.BOLD, 24));
         botao.setFocusPainted(false);
         botao.setForeground(determinarCorTextoBotao(rotulo));
         botao.setBackground(determinarCorBotao(rotulo));
-        botao.setBorder(javax.swing.BorderFactory.createEmptyBorder(15, 15, 15, 15)); // Deixa os botões com estilo "Flat"
+        botao.setBorder(javax.swing.BorderFactory.createEmptyBorder(15, 15, 15, 15));
         botao.addActionListener(criarOuvidorBotao(rotulo));
         return botao;
     }
 
     private Color determinarCorBotao(String rotulo) {
         return switch (rotulo) {
-            case "=" -> new Color(0, 120, 215); // Azul elegante (estilo Windows)
-            case "+", "-", "*", "/", "(", ")", "C", "CE", "Calcs" -> new Color(45, 45, 45); // Cinza escuro para operadores e ações
-            default -> new Color(60, 60, 60); // Cinza mais claro para os números
+            case "=" -> new Color(0, 120, 215);
+            case "+", "-", "*", "/", "(", ")", "C", "CE", "Calcs" -> new Color(45, 45, 45);
+            default -> new Color(60, 60, 60);
         };
     }
 
     private Color determinarCorTextoBotao(String rotulo) {
         return switch (rotulo) {
-            case "C", "CE" -> new Color(255, 100, 100); // Vermelho suave para "limpar"
-            case "+", "-", "*", "/" -> new Color(100, 180, 255); // Azul suave para operadores matemáticos
-            case "(", ")" -> new Color(170, 170, 170); // Cinza claro
+            case "C", "CE" -> new Color(255, 100, 100);
+            case "+", "-", "*", "/" -> new Color(100, 180, 255);
+            case "(", ")" -> new Color(170, 170, 170);
             default -> Color.WHITE;
         };
     }
@@ -120,6 +120,7 @@ public class TelaCalculadora extends JFrame {
             switch (rotulo) {
                 case "=" -> tratarCalculo();
                 case "C", "CE" -> tratarLimpar();
+                case "Calcs" -> abirHistorico(this);
                 default -> tratarEntrada(rotulo);
             }
         };
@@ -133,8 +134,11 @@ public class TelaCalculadora extends JFrame {
 
     private void tratarCalculo() {
         try {
+            String expressaoDisplayCompleta = visor.getText();
+            controlador.enviandoExpressaoModel(expressaoDisplayCompleta);
             String resultado = controlador.calcularResultado();
             visor.setText(resultado);
+
         } catch (IllegalArgumentException e) {
             visor.setText("Erro");
             Timer timer = new Timer(2000, evento -> {
@@ -150,5 +154,11 @@ public class TelaCalculadora extends JFrame {
     private void tratarLimpar() {
         controlador.limpar();
         visor.setText("");
+    }
+
+    private void abirHistorico(JFrame classePai) {
+        HistoricoCalculadora historico = new HistoricoCalculadora(classePai);
+        historico.preencherHistoricoCalculadora(controlador.historicoOperacoes());
+        historico.setVisible(true);
     }
 }
