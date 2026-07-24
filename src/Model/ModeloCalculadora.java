@@ -57,6 +57,11 @@ public class ModeloCalculadora {
         construtorExpressao.setLength(0);
     }
 
+    public void limparCaracter() {
+        int posicaoUltimoCaract = construtorExpressao.toString().length() - 1;
+        construtorExpressao.deleteCharAt(posicaoUltimoCaract); 
+    }
+
     private boolean tokenPermitido(String token) {
         return token.matches("[0-9]") || token.matches("[+\\-*/().]");
     }

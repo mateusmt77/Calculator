@@ -39,6 +39,10 @@ public class ControladorCalculadora {
         modelo.limpar();
     }
 
+    public void limparCaracter() {
+        modelo.limparCaracter(); 
+    }
+
     public Deque<String> historicoOperacoes() {
         return modelo.obterHistoricoExpressao();
     }

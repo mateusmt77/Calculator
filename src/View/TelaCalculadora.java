@@ -119,7 +119,8 @@ public class TelaCalculadora extends JFrame {
         return evento -> {
             switch (rotulo) {
                 case "=" -> tratarCalculo();
-                case "C", "CE" -> tratarLimpar();
+                case "CE" -> limparDisplay();
+                case "C" -> limparCaracterUnico();
                 case "Calcs" -> abirHistorico(this);
                 default -> tratarEntrada(rotulo);
             }
@@ -151,9 +152,15 @@ public class TelaCalculadora extends JFrame {
         }
     }
 
-    private void tratarLimpar() {
+    private void limparDisplay() {
         controlador.limpar();
         visor.setText("");
+    }
+
+    private void limparCaracterUnico() {
+        controlador.limparCaracter();
+        String expressaoAtualizada = controlador.obterExpressaoAtual();
+        visor.setText(expressaoAtualizada); 
     }
 
     private void abirHistorico(JFrame classePai) {
